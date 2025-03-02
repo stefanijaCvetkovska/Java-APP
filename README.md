@@ -1,2 +1,2 @@
 # Java-APP
-Functional application used for requirements to create a diploma thesis
+Functional application used for the requirements to create a diploma thesis
