@@ -1,0 +1,84 @@
+<div><img src="/images/img_2.png" class="img-fluid"></div>
+<div class="p-4" style="background-color: #ABE8E1">
+    <div class="container d-flex justify-content-center">
+        <div class="col-10">
+            <form th:method="POST"
+                  th:action="@{'/booking/create'}">
+                <div class="row justify-content-center my-4">
+                    <div class="form-group col-5">
+                        <label class="p-3">Owner Full Name</label>
+                        <input type="text"
+                               class="form-control input-style py-3 shadow-lg"
+                               th:value="${owner.firstName + ' ' + owner.lastName}">
+                    </div>
+                    <div class="form-group col-5">
+                        <label class="p-3">Select Pet</label>
+                        <select name="petName"
+                                class="form-control input-style py-3 shadow-lg"
+                                required>
+                            <option th:each="pet : ${pets}"
+                                    th:value="${pet.name}"
+                                    th:text="${pet.name}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center my-4">
+                    <div class="form-group col-5">
+                        <label class="p-3">Select Date</label>
+                        <input type="date"
+                               class="form-control input-style py-3 shadow-lg"
+                               name="date"
+                               required>
+                    </div>
+
+                    <div class="form-group col-5">
+                        <label class="p-3">Select Service</label>
+                        <select name="service"
+                                class="form-control input-style py-3 shadow-lg"
+                                required>
+                            <option th:each="service : ${services}"
+                                    th:value="${service.id}"
+                                    th:text="${service.name}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="form-group col-10 mt-2 mb-3">
+                        <label class="p-3">Select time</label>
+                        <div class="d-flex justify-content-between">
+                             <span th:each="hour: ${hours}">
+                            <input type="radio"
+                                   class="btn-check"
+                                   th:id="${hour}"
+                                   th:value="${hour}"
+                                   name="time"
+                                   required>
+                            <label class="btn btn-outline-light booking-btn px-4"
+                                   th:for="${hour}"
+                                   th:text="${hour}"></label>
+                        </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-10 mt-2 mb-5">
+                        <label class="p-3">Reason</label>
+                        <textarea rows="3"
+                                  style="height:100%"
+                                  class="form-control input-style py-3 shadow-lg"
+                                  name="reason"
+                                  placeholder="Short explanation for the appointment"
+                        ></textarea>
+                    </div>
+
+                    <div class="d-grid gap-2 col-10 my-5">
+                        <button class="btn btn-outline-light booking-btn" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

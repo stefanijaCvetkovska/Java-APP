@@ -1,0 +1,36 @@
+<div>
+    <div class="home-page pt-5">
+        <div class="container">
+            <div class="">
+                <img src="/images/img_1.png" class="img-fluid img">
+                <p class="mb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et
+                    dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et
+                    dolore magna aliqua.
+                </p>
+                <div class="mt-5">
+                    <div class="d-flex justify-content-center">
+                        <a sec:authorize="!isAuthenticated()" href="/login"
+                           class="btn btn-outline-light home-btn btn-lg">Book now</a>
+                        <a sec:authorize="isAuthenticated() && hasRole('ROLE_USER')" href="/booking"
+                           class="btn btn-outline-light home-btn btn-lg">Book now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-5 mt-5" id="services">
+        <h1 class="text-center mb-5 fw-bold">Our Services</h1>
+        <div class="row justify-content-center">
+            <div class="col-2 text-center shadow m-5 p-5" th:each="service: ${services}">
+                <img th:src="${service.image}" width="100px" class="mb-4"/>
+                <p class="fw-bold fs-5" th:text="${service.name}"></p>
+                <p class="text-center">
+                    Lorem ipsum dolor sit amet.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

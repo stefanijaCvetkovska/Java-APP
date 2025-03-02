@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <link href='//fonts.googleapis.com/css?family=Montserrat:thin,extra-light,light,100,200,300,400,500,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <script src="https://kit.fontawesome.com/4dd3d96676.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
+    <!---Calendar links, scripts---->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var eventsInput = document.getElementById('events').value;
+            var jsonEvents = JSON.parse(eventsInput)
+
+            var appointments = jsonEvents.map(function (val) {
+                const appointment = {
+                    id: val.id,
+                    title: val.time + ': ' + val.service.name,
+                    start: val.date,
+                    classNames: []
+                }
+                if (val.status == 'PENDING') {
+                    appointment.classNames.push('bg-warning', 'border', 'border-warning')
+                }
+                if (val.status == 'ACCEPTED') {
+                    appointment.classNames.push('bg-success', 'border', 'border-success')
+                }
+                if (val.status == 'CANCELED') {
+                    appointment.classNames.push('bg-danger', 'border', 'border-danger')
+                }
+                if (val.status == 'FINISHED') {
+                    appointment.classNames.push('bg-secondary', 'border', 'border-secondary')
+                }
+
+                return appointment;
+            })
+            console.log(appointments)
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: appointments
+
+            });
+            calendar.render();
+        });
+
+    </script>
+    <!---Calendar End---->
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'Month');
+            data.addColumn('number', 'Revenue');
+            data.addColumn('number', 'Expenses');
+            data.addColumn('number', 'Income');
+            data.addRows([[${incomeChart}]]);
+
+            var options = {
+                title: 'Pet Shop Performance',
+                hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
+                vAxis: {minValue: 0}
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'Month');
+            data.addColumn('number', 'Pets');
+            data.addRows([[${petsPerMonth}]]);
+
+
+            var options = {
+                title: 'Pets registered per month',
+                hAxis: {title: 'Month', minValue: 0, maxValue: 12},
+                vAxis: {title: 'Pets', minValue: 0, maxValue: 100},
+                legend: 'none'
+            };
+
+            var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_2'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Montserrat;
+        }
+    </style>
+    <link href="/css/main.css" rel="stylesheet"/>
+    <script th:src="@{/scripts/navbar.js}"></script>
+    <script th:src="@{/scripts/slider.js}"></script>
+    <script th:src="@{/scripts/toast.js}"></script>
+</head>
+<body>
+<div>
+    <div th:replace="~{fragments/navbar.html}"></div>
+</div>
+<div>
+    <section th:insert="~{${bodyContent}}"></section>
+</div>
+<div sec:authorize="!isAuthenticated() || hasRole('ROLE_USER')">
+    <div th:replace="~{fragments/footer.html}"></div>
+</div>
+</body>
+</html>

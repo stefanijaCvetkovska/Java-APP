@@ -1,0 +1,224 @@
+.bkg{
+    transition: background 500ms;
+    background: #2D3E4B;
+}
+.bkg div ul li a{
+    transition: background 500ms;
+    color: white;
+}
+.bkg div ul li a:hover{
+    color: white;
+}
+.navbar-brand{
+    color: white;
+}
+.navbar-brand:hover{
+    color: white;
+}
+.home-page{
+    background: #2D3E4B !important;
+    color: white;
+    padding-bottom: 5rem;
+}
+.img{
+    margin-top: 6rem;
+}
+.home-btn{
+    border-radius: 50px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.service-card{
+    padding: 4rem;
+    border-radius: 30px;
+}
+
+.service-carousel {
+    overflow: inherit;
+}
+
+.slick-slide {
+    margin: 0px 20px;
+}
+
+.slick-slide img {
+    height: 120px;
+    width: 120px;
+}
+
+.slick-track::before,
+.slick-track::after {
+    display: table;
+    content: '';
+}
+
+.slick-track::after {
+    clear: both;
+}
+
+.slick-track {
+    padding: 1rem 0;
+}
+
+.slick-loading .slick-track {
+    visibility: hidden;
+}
+
+.slick-slide.slick-loading img {
+    display: none;
+}
+
+.slick-slide.dragging img {
+    pointer-events: none;
+}
+
+.slick-loading .slick-slide {
+    visibility: hidden;
+}
+
+.slick-arrow {
+    position: absolute;
+    top: 50%;
+    background: url(https://raw.githubusercontent.com/solodev/infinite-logo-carousel/master/images/arrow.svg?sanitize=true) center no-repeat;
+    color: #fff;
+    filter: invert(77%) sepia(32%) saturate(1%) hue-rotate(344deg) brightness(105%) contrast(103%);
+    border: none;
+    width: 2rem;
+    height: 1.5rem;
+    text-indent: -10000px;
+    margin-top: -16px;
+    z-index: 99;
+}
+
+.slick-arrow.slick-next {
+    right: -40px;
+    transform: rotate(180deg);
+}
+
+.slick-arrow.slick-prev {
+    left: -40px;
+}
+
+.input-style{
+    border-radius: 30px;
+    border: none;
+    padding-left: 20px;
+}
+.booking-btn, .register-pet-btn{
+    border-radius: 30px;
+    background: #2D3E4B;
+    border-color: #2D3E4B;
+}
+
+.user-profile{
+    background-color: #2D3E4B;
+    margin: -5rem 2rem 2rem 2rem;
+    height: 100vh;
+    border-radius: 30px;
+    padding-top: 6rem;
+}
+
+.user-details{
+    margin-top: 5rem;
+}
+
+.p-link-1, .p-link-2{
+    border-radius: 30px;
+    padding: 0.7rem;
+}
+
+.p-link-1{
+    background-color: #ABE8E1;
+}
+.p-link-2{
+    background-color: #F5D2BE;
+}
+
+.pet-card{
+    margin-right: 4rem;
+    border-radius: 20px;
+    border: none;
+}
+
+.pet-details{
+    border-radius: 20px;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    background-color: #e1ece8;
+}
+
+.page-item > a, .page-number {
+    text-decoration: none;
+    color: rgb(73, 73, 73);
+    font-size: medium;
+    text-transform: uppercase;
+}
+
+.page-limit{
+    color: rgba(51, 51, 51, 0.25);
+    font-size: medium;
+    text-transform: uppercase;
+}
+
+.border-p{
+    border: 1px solid rgba(128, 128, 128, 0.31);
+    display: flex;
+    justify-content: center;
+    margin: 2px;
+}
+.image-box{
+    margin-left: -10%;
+}
+.table-margin{
+    margin: 2rem;
+    font-size: small;
+}
+
+.g-div, .s-div{
+    background: white;
+    border-radius: 30px;
+    padding: 2rem;
+    margin-top: 1.4rem;
+}
+.product-card{
+    width: 18rem;
+}
+.admin-sidebar{
+    width: 330px;
+    padding-top: 8rem;
+    background-color: #2D3E4B;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.stat-box{
+    margin: 1rem;
+    padding: 2rem;
+    border-radius: 10px;
+    color: white;
+    width: 240px;
+}
+
+.pet-stat{
+    width: 150px;
+    border-radius: 10px;
+    padding: 1.2rem;
+}
+
+.shop-box{
+    padding: 2.5rem;
+    margin: 2.1rem;
+    border-radius: 10px;
+    color: white;
+}
+.fc .fc-col-header-cell-cushion{
+    text-decoration: none;
+    color: unset;
+}
+.fc .fc-daygrid-day-number{
+    text-decoration: none;
+    color: #f15f93;
+}

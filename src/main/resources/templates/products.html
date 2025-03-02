@@ -1,0 +1,122 @@
+<div xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div style="margin-top: 8rem">
+        <div>
+            <div class="container">
+                <img style="margin-top: -3rem" src="/images/img_11.png" class="img-fluid">
+            </div>
+            <div class="d-flex justify-content-center">
+                <img style="width: 150px" src="/images/img_12.gif" class="img-fluid">
+            </div>
+            <div class="mx-5">
+                <div class="card shadow p-3 mb-5 bg-white border-0">
+                    <div class="row justify-content-center">
+                        <div class="row">
+                            <div class="col-2">
+                                <form th:action="@{'/products/page/1'}">
+                                    <button class="btn btn-danger ms-5" type="submit" value="">
+                                        Clear filters
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="col-10">
+                                <form class="row">
+                                    <div class="col-3">
+                                        <select name="category" class="form-control">
+                                            <option value="">ALL CATEGORIES
+                                            </option>
+                                            <option th:each="c : ${categories}"
+                                                    th:value="${c}"
+                                                    th:text="${c}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <select name="species" class="form-control">
+                                            <option value="">ALL SPECIES
+                                            </option>
+                                            <option th:each="s : ${speciesList}"
+                                                    th:value="${s}"
+                                                    th:text="${s}">
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <input class="form-control"
+                                               type="text"
+                                               name="name"
+                                               placeholder="Search for a product"
+                                               value=""/>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mx-5 my-5 py-3 px-5 ">
+                <div class="row justify-content-evenly">
+                    <div th:each="product: ${products}" class="product-card m-3 shadow-lg rounded text-center">
+                        <div>
+                            <div class="my-4">
+                                <img th:src="${product.image}" width="180px" height="180px"/>
+                            </div>
+                            <div>
+                                <div>
+                                    <small th:text="${product.name}" class="fw-bold mb-2"></small>
+                                </div>
+
+                                <div class="mt-1 mb-3">
+                                    <span class="text-lowercase badge bg-primary"
+                                          th:text="${product.species}"></span>
+                                    <span class="text-lowercase badge bg-secondary"
+                                          th:text="${product.category}"></span>
+                                </div>
+                                <h2 th:text="${product.price} + '€'" class="fw-bold text-success"></h2>
+
+                            </div>
+                            <form sec:authorize="hasRole('ROLE_USER')"
+                                  method="POST"
+                                  th:action="@{'/cart/add-product/{id}' (id=${product.id})}">
+                                <div class="d-grid gap-2 px-2">
+                                    <button type="submit" class="my-4 btn btn-dark">
+                                        <i class="bi bi-cart-plus"></i> Add to card
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${param.success}">
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div style="background-color: #ceede1;" class="toast show" role="alert" id="myToast">
+                            <div class="toast-header">
+                                <i class="bi bi-check-square-fill me-2 text-success"></i>
+                                <strong class="me-auto">ORDER SUCCESSFUL</strong>
+                                <small>Just now</small>
+                                <button id="toast-close" type="button" class="btn-close" data-bs-dismiss="toast"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Delivery time 2-5 business days.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Pagination-->
+                <div class="mt-5 d-flex justify-content-center">
+                    <th:block th:replace="product-pagination.html"></th:block>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

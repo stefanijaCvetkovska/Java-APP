@@ -1,0 +1,189 @@
+<div class="row">
+    <div class="col-3">
+        <th:block th:replace="~{fragments/admin-sidebar.html}"></th:block>
+    </div>
+    <div class="col-9" style="margin-top: 8rem">
+        <div>
+            <div class="row mb-5">
+                <div class="col-3 shadow-lg stat-box " style="background-color: #868686">
+                    <p class=" fs-2" th:text="${today}"></p>
+                    Appointments booked today
+                </div>
+                <div class="col-3 shadow-lg stat-box" style="background-color: #FFAD33">
+                    <p class=" fs-2" th:text="${pending}"></p>
+                    Pending appointments
+                </div>
+                <div class="col-3 shadow-lg stat-box" style="background-color: #93D09A">
+                    <p class=" fs-2" th:text="${finished}"></p>
+                    Finished appointments
+                </div>
+                <div class="col-3 shadow-lg stat-box" style="background-color: #EB9393">
+                    <p class=" fs-2" th:text="${canceled}"></p>
+                    Canceled appointments
+                </div>
+            </div>
+        </div>
+        <div class=""></div>
+        <div class="card shadow-lg p-3 mb-5 bg-white pet-card">
+            <div class="row m-4">
+                <div class="col-2">
+                    <form th:action="@{'/admin/appointments/page/1'}">
+                        <button class="btn btn-danger" type="submit" value="">
+                            Clear filters
+                        </button>
+                    </form>
+                </div>
+                <div class="col-5">
+                    <form class="row" th:action="@{'/admin/appointments/page/1?status=' + ${status}}">
+                        <div class="input-group">
+                            <select class="form-select"
+                                    id="inputGroupStatus"
+                                    aria-label="Example select with button addon"
+                                    name="status">
+                                <option disabled selected>Status options</option>
+                                <option th:each="status : ${statusList}"
+                                        th:value="${status}"
+                                        th:text="${status}"></option>
+                            </select>
+                            <button class="btn btn-outline-primary" type="submit">Submit</button>
+                        </div>
+                        <small class="form-text text-muted">Filter by status</small>
+                    </form>
+                </div>
+                <div class="col-5">
+                    <form class="row" th:action="@{'/admin/appointments/page/1?service=' + ${service}}">
+                        <div class="input-group">
+                            <select class="form-select"
+                                    id="inputGroupService"
+                                    aria-label="Example select with button addon"
+                                    name="service">
+                                <option disabled selected>Service options</option>
+                                <option th:each="service : ${serviceList}"
+                                        th:value="${service.id}"
+                                        th:text="${service.name}"></option>
+                            </select>
+                            <button class="btn btn-outline-primary" type="submit">Submit</button>
+                        </div>
+                        <small class="form-text text-muted">Filter by service</small>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-margin row justify-content-center">
+                <table class="table table-bordered align-middle text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Pet</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="line-height: 50px" th:each="appointment: ${appointments}">
+                        <th scope="row" th:text="${appointmentStat.index + 1}"></th>
+                        <td th:text="${appointment.petName}"></td>
+                        <td th:text="${appointment.service.name}"></td>
+                        <td th:text="${appointment.date}"></td>
+                        <td th:text="${appointment.time}"></td>
+                        <td th:if="${#strings.equals(appointment.status, 'PENDING')}">
+                            <div class="d-grid gap-2">
+                                <button th:text="${appointment.status}"
+                                        type="button"
+                                        class="btn btn-warning btn-sm"
+                                        data-bs-toggle="modal"
+                                        th:data-bs-target="|#pending${appointment.id}|">
+                                </button>
+                            </div>
+                            <div class="modal fade"
+                                 th:id="|pending${appointment.id}|"
+                                 tabindex="-1"
+                                 aria-labelledby="pendingModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="pendingModalLabel">
+                                                New appointment pending...
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-start">
+                                            <small>Pet owner</small>
+                                            <input class="form-control"
+                                                   type="text"
+                                                   th:value="${appointment.owner.firstName + ' ' + appointment.owner.lastName}"
+                                                   aria-label="Disabled input"
+                                                   disabled readonly>
+                                            <small>Pet name</small>
+                                            <input class="form-control"
+                                                   type="text" th:value="${appointment.petName}"
+                                                   aria-label="Disabled input"
+                                                   disabled readonly>
+                                            <small>Service</small>
+                                            <input class="form-control"
+                                                   type="text" th:value="${appointment.service.name}"
+                                                   aria-label="Disabled input"
+                                                   disabled readonly>
+                                            <small>Reason</small>
+                                            <input class="form-control"
+                                                   type="text" th:value="${appointment.reason}"
+                                                   aria-label="Disabled input"
+                                                   disabled readonly>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form th:method="post"
+                                                  th:action="@{'/admin/appointments/accept/{id}'(id=${appointment.id})}">
+                                                <button type="submit" class="btn btn-success" data-dismiss="modal">
+                                                    Accept
+                                                </button>
+                                            </form>
+                                            <form th:method="post"
+                                                  th:action="@{'/admin/appointments/cancel/{id}'(id=${appointment.id})}">
+                                                <button type="submit" class="btn btn-danger">
+                                                    Cancel
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td th:if="${#strings.equals(appointment.status,'ACCEPTED')}">
+                            <form th:method="post"
+                                  th:action="@{'/admin/appointments/finish/{id}'(id=${appointment.id})}">
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-success">
+                                        ACCEPTED
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                        <td th:if="${#strings.equals(appointment.status,'FINISHED')}">
+
+                            <div class="d-grid gap-2">
+                                <button th:text="${appointment.status}"
+                                        class="btn btn-secondary disabled"></button>
+                            </div>
+
+                        </td>
+                        <td th:if="${#strings.equals(appointment.status, 'CANCELED')}">
+                            <div class="d-grid gap-2">
+                                <button th:text="${appointment.status}"
+                                        class="btn btn-danger disabled"></button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="m-5 d-flex justify-content-center" style="padding-right: 5rem">
+                <th:block th:replace="~{admin-pagination-appointments.html}"></th:block>
+            </div>
+        </div>
+    </div>
+</div>

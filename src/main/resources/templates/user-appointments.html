@@ -1,0 +1,95 @@
+<div style="margin-top: 8rem">
+    <section class="row">
+        <div class="col-4">
+            <th:block th:replace="~{user-profile.html}"></th:block>
+        </div>
+        <div class="col-8">
+            <div class="m-3">
+                <h1>All Bookings</h1>
+            </div>
+            <div class="card shadow p-3 mb-5 bg-white pet-card">
+                <div class="row m-4">
+                    <div class="col-2">
+                        <form th:action="@{'/user/profile/bookings/page/1'}">
+                            <button class="btn btn-danger" type="submit" value="">
+                                Clear filters
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-5">
+                        <form class="row" th:action="@{'/user/profile/bookings/page/1?status=' + ${status}}">
+                            <div class="col-8">
+                                <select name="status" class="form-control col-7">
+                                    <option th:each="so : ${statusOptions}"
+                                            th:value="${so}"
+                                            th:text="${so}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                            <small class="form-text text-muted">Filter by status</small>
+                        </form>
+                    </div>
+                    <div class="col-5">
+                        <form class="row" th:action="@{'/user/profile/bookings/page/1?date=' + ${date}}">
+                            <div class="col-8">
+                                <input type="date"
+                                       class="form-control"
+                                       name="date">
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                            <small class="form-text text-muted">Filter by date</small>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="table-margin">
+                    <table class="table table-bordered align-middle text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Pet</th>
+                            <th scope="col">Service</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr style="line-height: 50px" th:each="appointment: ${appointments}">
+                            <th scope="row" th:text="${appointmentStat.index + 1}"></th>
+                            <td th:text="${appointment.petName}"></td>
+                            <td th:text="${appointment.service.name}"></td>
+                            <td th:text="${appointment.date}"></td>
+                            <td th:text="${appointment.time}"></td>
+                            <td th:if="${#strings.equals(appointment.status, 'PENDING')}">
+                                <p th:text="${appointment.status}"
+                                   class="badge bg-warning"></p>
+                            </td>
+                            <td th:if="${#strings.equals(appointment.status,'ACCEPTED')}">
+                                <p th:text="${appointment.status}"
+                                   class="badge bg-success"></p>
+                            </td>
+                            <td th:if="${#strings.equals(appointment.status,'FINISHED')}">
+                                <p th:text="${appointment.status}"
+                                   class="badge bg-secondary"></p>
+                            </td>
+                            <td th:if="${#strings.equals(appointment.status, 'CANCELED')}">
+                                <p th:text="${appointment.status}"
+                                   class="badge bg-danger"></p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ms-5 mb-3 d-flex justify-content-center" style="padding-right: 5rem">
+                    <th:block th:replace="~{appointments-pagination.html}"></th:block>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

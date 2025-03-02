@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <link href='//fonts.googleapis.com/css?family=Montserrat:thin,extra-light,light,100,200,300,400,500,600,700,800'
+          rel='stylesheet' type='text/css'>
+
+    <style>
+        html {
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        body {
+            font-family: Montserrat;
+            background-color: #2D3E4B;
+        }
+
+        .form-control {
+            border-radius: 30px;
+            border: none;
+            width: 50%;
+            height: 50px;
+            padding-left: 20px;
+        }
+
+        .btn-outline-light {
+            border-radius: 30px;
+            background: #2D3E4B;
+            border-color: #2D3E4B;
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+<svg width="1212"
+     height="1084"
+     viewBox="0 0 1212 1084"
+     fill="none"
+     xmlns="http://www.w3.org/2000/svg"
+     style="position: absolute; z-index: -1">
+    <path d="M-367 542.5C-367 899 7.89374 1188 470.349 1188C932.803 1188 1212 876 1212 519.5C1212 163 865.482 -122 403.027 -122C-59.428 -122 -367 186 -367 542.5Z"
+          fill="#ABE8E1"/>
+</svg>
+
+<div class="pt-5">
+    <div class="d-flex justify-content-center m-5">
+        <div class="col-md-7">
+
+            <div class="ms-5 ps-3" th:if="${param.success}">
+                 <span class="badge rounded-pill bg-success">You've successfully registered!
+                    <a class="text-info" href="/" th:href="@{/login}">Login here</a>
+                 </span>
+            </div>
+
+            <div class="pt-5">
+                <div>
+                    <h1 class="ms-5 ps-5"><strong>REGISTER</strong></h1>
+                    <form class="mt-5" th:action="@{/register}" method="post" th:object="${user}">
+                        <div class="form-group my-4">
+                            <input id="firstName"
+                                   name="firstName"
+                                   placeholder="First name"
+                                   type="text"
+                                   class="form-control"
+                                   th:field="*{firstName}"
+                                   required
+                                   autofocus="autofocus">
+                        </div>
+
+                        <div class="form-group my-4">
+                            <input id="lastName"
+                                   name="lastName"
+                                   placeholder="Last name"
+                                   type="text"
+                                   class="form-control"
+                                   th:field="*{lastName}"
+                                   required
+                                   autofocus="autofocus">
+                        </div>
+
+                        <div class="form-group my-4">
+                            <input id="email"
+                                   name="email"
+                                   placeholder="Email"
+                                   type="text"
+                                   class="form-control"
+                                   th:field="*{email}"
+                                   required
+                                   autofocus="autofocus">
+                        </div>
+
+                        <div class="form-group my-4">
+                            <input id="password"
+                                   name="password"
+                                   placeholder="Password"
+                                   type="password"
+                                   class="form-control"
+                                   th:field="*{password}"
+                                   required
+                                   autofocus="autofocus">
+                        </div>
+
+                        <div class="ms-5 ps-5">
+                            <div class="ms-5 ps-1">
+                                <input type="submit"
+                                       name="register-submit"
+                                       id="register-submit"
+                                       class="btn btn-outline-light my-3"
+                                       value="Register"/>
+                            </div>
+                        </div>
+
+                        <div class="p-3">
+                            <span class="m-5 p-4 ">Already registered? Login <a
+                                    th:href="@{/login}"><strong>here</strong></a></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<section class="user-profile" style="margin-left: 4rem">
+    <div>
+        <div>
+            <div class="d-flex justify-content-center">
+                <img src="/images/img_4.png" style="width: 170px; height: 170px">
+            </div>
+            <div class="text-light user-details">
+                <h3 class="d-flex justify-content-center my-5" th:text="${user.firstName + ' ' + user.lastName}"></h3>
+                <p class="d-flex justify-content-center" th:text="${user.email}"></p>
+            </div>
+        </div>
+        <div class="d-grid gap-2 my-5">
+            <a href="/user/profile" class="btn btn-outline-dark p-link-1 mx-5 mb-2">Pets</a>
+            <a href="/user/profile/bookings" class="btn btn-outline-dark p-link-2 mx-5">Bookings</a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-3">
+        <th:block th:replace="~{fragments/admin-sidebar.html}"></th:block>
+    </div>
+    <div class="col-9" style="margin-top: 8rem">
+        <div>
+            <div class="row mb-5">
+                <div class="col-3 shadow-lg stat-box " style="background-color: #6c6c6c">
+                    <p class=" fs-2" th:text="${usersNum}"></p>
+                    Total clients
+                </div>
+                <div class="col-3 shadow-lg stat-box" style="background-color: #f15f93">
+                    <p class=" fs-2" th:text="${allPets}"></p>
+                    Total pets registered
+                </div>
+                <div class="col-3 shadow-lg stat-box" style="background-color: #89dc93">
+                    <p class=" fs-2" th:text="${vetVisits}"></p>
+                    Successful vet visits
+                </div>
+                <div class="col-3 shadow-lg stat-box" style="background-color: #93b5eb">
+                    <p class=" fs-2" th:text="${income} + '€'"></p>
+                    <small>Total income this month</small>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow-lg bg-white pet-card p-5 mb-5">
+            <input hidden id="events" th:value="${appointments}">
+            <div id='calendar'></div>
+        </div>
+        <div class="card shadow-lg p-3 mb-5 bg-white pet-card">
+            <div id="chart_div" style="width: 100%; height: 500px;"></div>
+        </div>
+        <div class="card shadow-lg p-3 mb-5 bg-white pet-card">
+            <div id="chart_div_2" style="width: 100%; height: 500px;"></div>
+        </div>
+    </div>
+</div>

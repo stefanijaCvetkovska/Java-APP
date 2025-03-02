@@ -1,0 +1,49 @@
+<div th:if="${totalPages > 1}">
+    <div class="row justify-content-center">
+        <div class="col-2 border-p">
+            <div class="page-item">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/user/profile/page/1'}">
+                    First
+                </a>
+            </div>
+            <span th:unless="${currentPage > 1}">First</span>
+        </div>
+
+        <div class="col-2 border-p">
+            <div class="page-item">
+                <a th:if="${currentPage > 1}"
+                   th:href="@{'/user/profile/page/' + ${currentPage - 1}}">
+                    Prev
+                </a>
+            </div>
+            <span th:unless="${currentPage > 1}">Prev</span>
+        </div>
+
+        <div class="col-3 text-center border-p">
+            <span class="page-number">
+                <span th:text="${currentPage + ' ' + 'of' + ' ' + totalPages}"></span>
+            </span>
+        </div>
+
+        <div class="col-2 border-p">
+            <div class="page-item">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/user/profile/page/' + ${currentPage + 1}}">
+                    Next
+                </a>
+            </div>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
+
+        <div class="col-2 border-p">
+            <div class="page-item">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/user/profile/page/' + ${totalPages}}">
+                    Last
+                </a>
+            </div>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
+    </div>
+</div>

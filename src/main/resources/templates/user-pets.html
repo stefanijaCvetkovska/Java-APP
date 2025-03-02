@@ -1,0 +1,279 @@
+<div style="margin-top: 8rem">
+    <section class="row">
+        <div class="col-4">
+            <th:block th:replace="~{user-profile.html}"></th:block>
+        </div>
+        <div class="col-8">
+            <div class="card shadow p-3 mb-5 bg-white pet-card">
+                <div class="card-body" th:each="pet: ${pets}">
+                    <div class="d-flex ms-4">
+                        <img th:src="${pet?.photo}" width="230px" height="170px" style="border-radius: 15px">
+                        <div class="mx-5">
+                            <h2 th:text="'Name: '+ ${pet?.name}"></h2>
+                            <p style="font-size: large"
+                               th:text="'Microchip no: ' +${pet?.microchipNumber}"></p>
+                            <p th:text="'Date of birth: '+${pet?.dateOfBirth}"></p>
+                            <div>
+                                <button type="button"
+                                        class="btn btn-outline-dark"
+                                        data-bs-toggle="modal"
+                                        th:data-bs-target="|#edit${pet.id}|">
+                                    Edit pet <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <div class="modal fade"
+                                     th:id="|edit${pet.id}|"
+                                     tabindex="-1" aria-labelledby="editModal"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModal">
+                                                    Edit pet:
+                                                    <span th:text="' ' + ${pet.name}"></span>
+                                                </h5>
+                                                <button type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <form th:method="POST"
+                                                  th:action="@{'/pets/update/{id}'(id=${pet.id})}">
+                                                <div class="text-center mt-3">
+                                                    <img th:src="${pet.photo}" style="width: 200px; height: 160px">
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <textarea rows="3"
+                                                                  class="form-control"
+                                                                  name="photo"
+                                                                  th:text="${pet.photo}"
+                                                                  placeholder="Photo"
+                                                                  required>
+                                                        </textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <textarea rows="3"
+                                                                  class="form-control"
+                                                                  name="healthIssues"
+                                                                  th:text="${pet.healthIssues}"
+                                                                  placeholder="Health Issues">
+                                                        </textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                       <textarea rows="3"
+                                                                 class="form-control"
+                                                                 name="vaccines"
+                                                                 th:text="${pet.vaccines}"
+                                                                 placeholder="Vaccines"
+                                                       ></textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div th:each="be : ${booleanExp}" class="form-check">
+                                                            <input class="form-check-input"
+                                                                   type="radio"
+                                                                   name="sterilized"
+                                                                   id="sterilizedEdit"
+                                                                   th:value="${be}"
+                                                                   th:checked="${pet.getSterilized() == be}"
+                                                                   required>
+                                                            <label class="form-check-label"
+                                                                   for="sterilizedEdit"
+                                                                   th:text="${be}">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">
+                                                        Cancel
+                                                    </button>
+                                                    <button type="submit"
+                                                            class="btn btn-danger">
+                                                        Edit
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <div class="row justify-content-around">
+                            <div class="pet-details border col-3 p-4">
+                                <strong>Species: </strong>
+                                <span th:text="${pet?.species}"></span>
+                            </div>
+                            <div class="pet-details border col-3 p-4">
+                                <strong>Breed: </strong>
+                                <span th:text="${pet?.breed}"></span>
+                            </div>
+                            <div class="pet-details border col-3 p-4">
+                                <strong>Gender: </strong>
+                                <span th:text="${pet?.gender}"></span>
+                            </div>
+                        </div>
+
+                        <div class="mx-4">
+                            <div class="pet-details mb-3 border ps-4 pt-4">
+                                <p>
+                                    <strong>Vaccines</strong>
+                                </p>
+                                <div>
+                                    <ul th:each="text: ${#strings.arraySplit(pet?.vaccines, ',')}">
+                                        <li th:text="${text}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="pet-details border ps-4 pt-4">
+                                <p>
+                                    <strong>Health issues</strong>
+                                </p>
+                                <div>
+                                    <ul th:each="text: ${#strings.arraySplit(pet?.healthIssues, ',')}">
+                                        <li th:text="${text}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="pet-details border p-4">
+                                <strong>Sterilized: </strong>
+                                <span th:text=" ${pet?.sterilized}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2" style="margin-right: 4rem">
+                <button type="button"
+                        class="btn btn-outline-light register-pet-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#registerPet">
+                    Register pet pet <i class="bi bi-plus-circle"></i>
+                </button>
+                <div class="modal fade"
+                     id="registerPet"
+                     tabindex="-1" aria-labelledby="registerModal"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2><strong>Register Pet <i class="bi bi-clipboard2-plus"></i></strong></h2>
+                            </div>
+                            <form class="p-4" th:method="POST"
+                                  th:action="@{'/pets/add'}">
+                                <div>
+                                    <div class="form-group mb-4">
+                                        <textarea rows="3"
+                                                  style="height:100%"
+                                                  class="form-control"
+                                                  name="photo"
+                                                  required
+                                                  placeholder="Photo"></textarea>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <input type="text"
+                                               class="form-control"
+                                               name="name"
+                                               required
+                                               placeholder="Name">
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <input type="text"
+                                               class="form-control"
+                                               name="microchipNumber"
+                                               placeholder="Microchip Number">
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <input class="form-control"
+                                               name="dateOfBirth"
+                                               required
+                                               placeholder="Date of birth"
+                                               onfocus="(this.type='date')">
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <select name="species"
+                                                class="form-control"
+                                                required>
+                                            <option value="" disabled selected>Species</option>
+                                            <option th:if="${pet} == null"
+                                                    th:each="s : ${species}"
+                                                    th:value="${s}"
+                                                    th:text="${s}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <input type="text"
+                                               class="form-control"
+                                               name="breed"
+                                               required
+                                               placeholder="Breed">
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <textarea rows="3"
+                                                  style="height:100%"
+                                                  class="form-control"
+                                                  name="vaccines"
+                                                  placeholder="Vaccines"
+                                        ></textarea>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                            <textarea rows="3"
+                                                      style="height:100%"
+                                                      class="form-control"
+                                                      name="healthIssues"
+                                                      placeholder="Health issues"
+                                            ></textarea>
+                                    </div>
+                                    <div class="d-flex mb-4">
+                                        <div class="form-group me-4">
+                                            <label class="p-3">Sterilized</label>
+                                            <div th:each="be : ${booleanExp}" class="form-check">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       name="sterilized"
+                                                       id="sterilized"
+                                                       th:value="${be}"
+                                                       required>
+                                                <label class="form-check-label"
+                                                       for="sterilized"
+                                                       th:text="${be}">
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="p-3">Gender</label>
+                                            <div th:each="g : ${gender}" class="form-check">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       name="gender"
+                                                       id="gender"
+                                                       th:value="${g}"
+                                                       required>
+                                                <label class="form-check-label"
+                                                       for="gender"
+                                                       th:text="${g}">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-dark my-4 ms-2 px-4 py-2"
+                                                style="border-radius: 30px"
+                                                type="submit">Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-5 d-flex justify-content-center" style="padding-right: 5rem">
+                <th:block th:replace="~{pets-pagination.html}"></th:block>
+            </div>
+        </div>
+    </section>
+</div>

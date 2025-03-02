@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg fixed-top bkg"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="mx-5 collapse navbar-collapse p-3" id="navbarTogglerDemo01">
+        <a class="navbar-brand fs-4 fw-bold" href="/">
+            Pet C<i class="fa-solid fa-paw"></i>re Center
+        </a>
+        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <li sec:authorize="hasRole('ROLE_USER')" class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li sec:authorize="hasRole('ROLE_USER')" class="nav-item">
+                <a class="nav-link" href="/#services">Services</a>
+            </li>
+            <li sec:authorize="isAuthenticated() && hasRole('ROLE_USER')" class="nav-item">
+                <a class="nav-link" href="/booking">Booking</a>
+            </li>
+            <li sec:authorize="isAuthenticated() && hasRole('ROLE_USER')" class="nav-item">
+                <a class="nav-link" href="/products/page/1">Pet Shop</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li sec:authorize="!isAuthenticated()" class="nav-item">
+                <a class="nav-link" th:href="@{/login}">Login</a>
+            </li>
+            <li sec:authorize="!isAuthenticated()" class="nav-item">
+                <a class="nav-link" th:href="@{/register}">Register</a>
+            </li>
+            <li sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')" class="nav-item">
+                <a class="nav-link" href="/admin/dashboard">Dashboard</a>
+            </li>
+            <li sec:authorize="isAuthenticated() && hasRole('ROLE_USER')" class="nav-item">
+                <a class="nav-link" href="/cart"><i class="bi bi-basket2-fill"></i></a>
+            </li>
+            <li sec:authorize="isAuthenticated() && hasRole('ROLE_USER')" class="nav-item">
+                <a class="nav-link" href="/user/profile">Profile</a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item">
+                <a th:href="@{/logout}" class="nav-link download" href="/login">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>

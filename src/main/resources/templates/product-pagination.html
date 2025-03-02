@@ -1,0 +1,175 @@
+<div th:if="${totalPages > 1}">
+    <div class="row justify-content-center">
+        <div class="col-2 border-p">
+            <div class="page-item"
+                 th:if="${currentPage > 1}">
+                <a th:if="${category != null && species != null && name != null}"
+
+                   th:href="@{'/products/page/1?category=' + ${category} + '&species=' + ${species} + '&name=' + ${name}}">
+                    first
+                </a>
+                <a th:if="${category != null && species != null && name == null}"
+                   th:href="@{'/products/page/1?category=' + ${category} + '&species=' + ${species}}">
+                    first
+                </a>
+                <a th:if="${category != null && name != null && species == null}"
+                   th:href="@{'/products/page/1?category=' + ${category} + '&name=' + ${name}}">
+                    first
+                </a>
+                <a th:if="${species != null && name!= null && category == null}"
+                   th:href="@{'/products/page/1?species=' + ${species} + '&name=' + ${name}}">
+                    first
+                </a>
+                <a th:if="${category != null && species == null && name == null}"
+                   th:href="@{'/products/page/1?category=' + ${category}}">
+                    first
+                </a>
+                <a th:if="${species != null && category == null && name == null}"
+                   th:href="@{'/products/page/1?species=' + ${species}}">
+                    first
+                </a>
+                <a th:if="${name != null && species == null && category == null}"
+                   th:href="@{'/products/page/1?name=' + ${name}}">
+                    first
+                </a>
+                <a th:if="${category == null && species == null  && name == null}"
+                   th:href="@{'/products/page/1'}">
+                    first
+                </a>
+            </div>
+            <span th:unless="${currentPage > 1}" class="page-limit">
+                first
+            </span>
+        </div>
+
+        <div class="col-2 border-p">
+            <div class="page-item"
+                 th:if="${currentPage > 1}">
+                <a th:if="${category != null && species != null && name != null}"
+                   th:href="@{'/products/page/' + ${currentPage - 1} + '?category=' + ${category} + '&species=' + ${species} + '&name=' + ${name}}">
+                    prev
+                </a>
+                <a th:if="${category != null && species != null && name == null}"
+                   th:href="@{'/products/page/' + ${currentPage - 1} + '?category=' + ${category} + '&species=' + ${species}}">
+                    prev
+                </a>
+                <a th:if="${category != null && name != null && species == null}"
+                   th:href="@{'/products/page/'+ ${currentPage - 1} + '?category=' + ${category} + '&name=' + ${name}}">
+                    prev
+                </a>
+                <a th:if="${species != null && name!= null && category == null}"
+                   th:href="@{'/products/page/' + ${currentPage - 1} +'?species=' + ${species} + '&name=' + ${name}}">
+                    prev
+                </a>
+                <a th:if="${category != null && species == null && name == null}"
+                   th:href="@{'/products/page/' + ${currentPage - 1} + '?category=' + ${categoryId}}">
+                    prev
+                </a>
+                <a th:if="${species != null && category == null && name == null}"
+                   th:href="@{'/products/page/' + ${currentPage - 1} + '?species=' + ${species}}">
+                    prev
+                </a>
+                <a th:if="${name != null && category== null && species == null}"
+                   th:href="@{'/products/page/' + ${currentPage - 1} + '?name=' + ${name}}">
+                    prev
+                </a>
+                <a th:if="${category == null && species == null && name == null}"
+                   th:href="@{'/products/page/' + ${currentPage - 1}}">
+                    prev
+                </a>
+            </div>
+            <span th:unless="${currentPage > 1}" class="page-limit">
+                prev
+            </span>
+        </div>
+
+        <div class="col-3 text-center border-p">
+            <span class="page-number">
+                <span th:text="${currentPage + ' ' + 'of' + ' ' + totalPages}"></span>
+            </span>
+        </div>
+
+        <div class="col-2 border-p">
+            <div class="page-item"
+                 th:if="${currentPage < totalPages}">
+                <a th:if="${category != null && species != null && name != null}"
+                   th:href="@{'/products/page/' + ${currentPage + 1} + '?category=' + ${category} + '&species=' + ${species} + '&name=' + ${name}}">
+                    next
+                </a>
+                <a th:if="${category != null && species != null && name == null}"
+                   th:href="@{'/products/page/' + ${currentPage + 1} + '?category=' + ${category} + '&species=' + ${species}}">
+                    next
+                </a>
+                <a th:if="${category != null && name != null && species == null}"
+                   th:href="@{'/products/page/'+ ${currentPage + 1} + '?category=' + ${category} + '&name=' + ${name}}">
+                    next
+                </a>
+                <a th:if="${species != null && name!= null && category == null}"
+                   th:href="@{'/products/page/' + ${currentPage + 1} +'?species=' + ${species} + '&name=' + ${name}}">
+                    next
+                </a>
+                <a th:if="${category != null && species == null && name == null}"
+                   th:href="@{'/products/page/' + ${currentPage + 1} + '?category=' + ${categoryId}}">
+                    next
+                </a>
+                <a th:if="${species != null && category == null && name == null}"
+                   th:href="@{'/products/page/' + ${currentPage + 1} + '?species=' + ${species}}">
+                    next
+                </a>
+                <a th:if="${name != null && category == null && species == null}"
+                   th:href="@{'/products/page/' + ${currentPage + 1} + '?name=' + ${name}}">
+                    next
+                </a>
+                <a th:if="${category == null && species == null && name == null}"
+                   th:href="@{'/products/page/' + ${currentPage + 1}}">
+                    next
+                </a>
+            </div>
+            <span th:unless="${currentPage < totalPages}" class="page-limit">
+                next
+            </span>
+        </div>
+
+
+        <div class="col-2 border-p">
+            <div class="page-item"
+                 th:if="${currentPage < totalPages}">
+                <a th:if="${category != null && species != null && name != null}"
+                   th:href="@{'/products/page/' + ${totalPages} + '?category=' + ${category} + '&species=' + ${species} + '&name=' + ${name}}">
+                    last
+                </a>
+                <a th:if="${category != null && species != null && name == null}"
+                   th:href="@{'/products/page/' + ${totalPages} + '?category=' + ${category} + '&species=' + ${species}}">
+                    last
+                </a>
+                <a th:if="${category != null && name != null && species == null}"
+                   th:href="@{'/products/page/'+ ${totalPages} + '?category=' + ${category} + '&name=' + ${name}}">
+                    last
+                </a>
+                <a th:if="${species != null && name!= null && category == null}"
+                   th:href="@{'/products/page/' + ${totalPages} +'?species=' + ${species} + '&name=' + ${name}}">
+                    last
+                </a>
+                <a th:if="${category != null && species == null && name == null}"
+                   th:href="@{'/products/page/' + ${totalPages} + '?category=' + ${categoryId}}">
+                    last
+                </a>
+                <a th:if="${species != null && category == null && name == null}"
+                   th:href="@{'/products/page/' + ${totalPages} + '?species=' + ${species}}">
+                    last
+                </a>
+                <a th:if="${name != null && category == null && species == null}"
+                   th:href="@{'/products/page/' + ${totalPages} + '?name=' + ${name}}">
+                    last
+                </a>
+                <a th:if="${category == null && species == null && name == null}"
+                   th:href="@{'/products/page/' + ${totalPages}}">
+                    last
+                </a>
+            </div>
+            <span th:unless="${currentPage < totalPages}" class="page-limit">
+                last
+            </span>
+        </div>
+    </div>
+</div>
